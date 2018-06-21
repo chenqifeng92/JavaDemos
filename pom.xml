@@ -11,7 +11,7 @@
     <modules>
         <module>JavaBasic</module>
         <module>JDBC</module>
-        <module>JspCurd</module>
+        <module>ServletJspCurd</module>
     </modules>
 
     <properties>

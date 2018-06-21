@@ -111,14 +111,14 @@ public class ValidateIdCard {
 
         //排除最后一位为X的身份证号
         List<String> idCardListX = new ArrayList<String>();
-        for(int i=0;i<idCardList.size();i++){
+        /*for(int i=0;i<idCardList.size();i++){
             String idCard = idCardList.get(i);
             String aaa =  String.valueOf(idCard.charAt(17));
             if (aaa.equals("X")){
                 idCardList.remove(i);
                 idCardListX.add(idCard);
             }
-        }
+        }*/
 
         //打印包含X的身份证号
         for(String idCard : idCardListX){
