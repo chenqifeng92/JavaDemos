@@ -20,8 +20,11 @@ public class TestRegex {
     @Test
     public void testReplaceAll(){
         //将str中所有数字替换为*
-        String str = "abc123bcd45ef6g7890";
-        str = str.replaceAll("\\d+", "*");
+        String str = "abc1?3bcd45ef?g7890";
+        str = str.replaceAll("\\?", "问号");
+        String abc = "abc1?3bcd45ef?g7890";
+        abc = abc.replaceFirst("\\?","答案");
         System.out.println(str);
+        System.out.println(abc);
     }
 }
