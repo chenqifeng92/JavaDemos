@@ -92,7 +92,7 @@ public class ValidateIdCard {
      */
     @Test
     public void verifyLastDigit(){
-        String idCardNo = "320281199505117015";
+        String idCardNo = "32068419970725854";
         ValidateIdCard vi = new ValidateIdCard();
         String lastStr = vi.validateIdLast(idCardNo);
         System.out.println(lastStr);
@@ -103,7 +103,7 @@ public class ValidateIdCard {
      */
     @Test
     public void getLast4Digits(){
-        String idCardDb = "32011119940523";//输入身份证号码前十四位
+        String idCardDb = "32068419970725";//输入身份证号码前十四位
         boolean isMale = false;//输入性别
 
         ValidateIdCard vr = new ValidateIdCard();
