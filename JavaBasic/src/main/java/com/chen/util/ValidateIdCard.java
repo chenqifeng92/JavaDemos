@@ -21,6 +21,10 @@ public class ValidateIdCard {
     int lastNo = 0;
     String lastStr = null;
 
+    //生日月
+    int[] birthMonth = {1,2,3,4,5,6,7,8,9,10,11,12};
+    //生日日
+
     /**
      * 入参为身份证号前17位，求最后一位；
      * 入参为18位身份证号，验证最后一位；
@@ -92,7 +96,7 @@ public class ValidateIdCard {
      */
     @Test
     public void verifyLastDigit(){
-        String idCardNo = "32068419970725854";
+        String idCardNo = "420117199701190022";
         ValidateIdCard vi = new ValidateIdCard();
         String lastStr = vi.validateIdLast(idCardNo);
         System.out.println(lastStr);
@@ -134,6 +138,16 @@ public class ValidateIdCard {
                 System.out.println(idCard+","+"女");
             }
         }
-        System.out.println(idCardList.size());
+
+
+      System.out.println(idCardList.size());
+    }
+
+    /**
+     * 生日被码掉遍历可能的生日
+     */
+    @Test
+    public void getBirthday(){
+
     }
 }
