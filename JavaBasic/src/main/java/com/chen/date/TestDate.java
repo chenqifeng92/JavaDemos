@@ -26,6 +26,7 @@ public class TestDate {
 
         long time = date.getTime();
         //增加一天所经历的毫秒数
+        System.out.println(time);
         time+=60*60*24*1000;
         date.setTime(time);
         //输出明天此时此刻的日期和时间

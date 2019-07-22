@@ -2,7 +2,10 @@ package com.chen.util;
 
 import org.junit.Test;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 
@@ -21,9 +24,37 @@ public class ValidateIdCard {
     int lastNo = 0;
     String lastStr = null;
 
-    //生日月
-    int[] birthMonth = {1,2,3,4,5,6,7,8,9,10,11,12};
-    //生日日
+    //从给出的火车票身份证号码中取出出生年份
+    //遍历该年份所有日期，并且将返回的四位日期格式
+    //将遍历最后一位相符合的存入一个结果集合
+    //写一个正则表达式，要求18位字符串，其中1-10位为数字，11-14位为*，最后三位为数字，最后一位可数字可Xx
+
+    public String foreachBirthday(String ticketFormatIdNo) throws Exception{
+        String ticketFormatRegex = "^\\d{10}\\*{4}\\d{3}[0-9Xx]$";
+        if(!ticketFormatIdNo.matches(ticketFormatRegex)){
+            System.out.println("输入不符合火车票面身份证字符串格式");
+        }
+        String idpresix = ticketFormatIdNo.substring(0,6);
+        String birthyear = ticketFormatIdNo.substring(6,10);
+        String sufffour = ticketFormatIdNo.substring(14);
+        //String year = null;
+        String birthstart = birthyear + "-01-01";
+        for(int i=0;i<=365;i++){
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            Date date = new Date();
+            date = sdf.parse(birthstart);
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(date);
+            calendar.add(Calendar.DAY_OF_YEAR,1);
+            Date d = calendar.getTime();
+            date = d;
+            SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
+            //year = sdf2.format(d).substring(0,4);
+            System.out.println(sdf2.format(d));
+        }
+
+        return null;
+    }
 
     /**
      * 入参为身份证号前17位，求最后一位；
@@ -107,8 +138,8 @@ public class ValidateIdCard {
      */
     @Test
     public void getLast4Digits(){
-        String idCardDb = "32068419970725";//输入身份证号码前十四位
-        boolean isMale = false;//输入性别
+        String idCardDb = "32068319960903";//输入身份证号码前十四位
+        boolean isMale = true;//输入性别
 
         ValidateIdCard vr = new ValidateIdCard();
         List<String> idCardList = vr.figureIdLastFour(idCardDb,isMale);
@@ -144,10 +175,12 @@ public class ValidateIdCard {
     }
 
     /**
-     * 生日被码掉遍历可能的生日
+     * 针对生日被码掉四位，遍历可能的生日
      */
     @Test
-    public void getBirthday(){
-
+    public void getBirthday() throws Exception{
+        String ticketFormatIdNo = "3206831992****6410";
+        ValidateIdCard vi = new ValidateIdCard();
+        vi.foreachBirthday(ticketFormatIdNo);
     }
 }
