@@ -11,9 +11,13 @@ public class EssentialDemos {
     public void MonthlyInvoice(){
         FileName fileName = new FileName();
         List<Long> invoicesList = fileName.getInvoicesList("C:\\Users\\Chen\\Downloads\\综合报销发票");
+        int sum = 0;
         for (Long fn : invoicesList) {
-            System.out.println(fn);
+            //System.out.println(fn);
+            int n = Integer.parseInt(fn.toString());
+            sum = sum + n;
         }
+        System.out.println(sum);
     }
     public static void main(String[] args) {
         EssentialDemos essentialDemos = new EssentialDemos();
