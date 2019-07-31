@@ -1,68 +1,32 @@
 package com.chen.util;
 
-import org.junit.Test;
+
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 
 public class ValidateIdCard {
-    //身份证前十七位加权权重
-    int[] weight = {7,9,10,5,8,4,2,1,6,3,7,9,10,5,8,4,2};
-    //身份证前十七位数组
-    int[] sfz = new int[17];
-    //权重之和
-    int s = 0;
-    //对权重求余11
-    int result = 0;
-    //身份证最后一位比对结果数组
-    int[] last = {1,0,10,9,8,7,6,5,4,3,2};
-    //身份证最后一位结果数
-    int lastNo = 0;
-    String lastStr = null;
 
-    //从给出的火车票身份证号码中取出出生年份
-    //遍历该年份所有日期，并且将返回的四位日期格式
-    //将遍历最后一位相符合的存入一个结果集合
-    //写一个正则表达式，要求18位字符串，其中1-10位为数字，11-14位为*，最后三位为数字，最后一位可数字可Xx
-
-    public String foreachBirthday(String ticketFormatIdNo) throws Exception{
-        String ticketFormatRegex = "^\\d{10}\\*{4}\\d{3}[0-9Xx]$";
-        if(!ticketFormatIdNo.matches(ticketFormatRegex)){
-            System.out.println("输入不符合火车票面身份证字符串格式");
-        }
-        String idpresix = ticketFormatIdNo.substring(0,6);
-        String birthyear = ticketFormatIdNo.substring(6,10);
-        String sufffour = ticketFormatIdNo.substring(14);
-        //String year = null;
-        String birthstart = birthyear + "-01-01";
-        for(int i=0;i<=365;i++){
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            Date date = new Date();
-            date = sdf.parse(birthstart);
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(date);
-            calendar.add(Calendar.DAY_OF_YEAR,1);
-            Date d = calendar.getTime();
-            date = d;
-            SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
-            //year = sdf2.format(d).substring(0,4);
-            System.out.println(sdf2.format(d));
-        }
-
-        return null;
-    }
+    //身份证验证正则表达式
+    String idFormatRegex = "^[1-9]\\d{5}(18|19|([23]\\d))\\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\\d{3}[0-9Xx]$";
+    //火车票面身份信息字符串格式
+    String ticketFormatRegex = "^\\d{10}\\*{4}\\d{3}[0-9Xx]$";
 
     /**
-     * 入参为身份证号前17位，求最后一位；
-     * 入参为18位身份证号，验证最后一位；
+     * 身份证号权重规则算法
      * @param idCardNo
      * @return
      */
-    public String validateIdLast(String idCardNo){
+    public static String idCardNoWeight(String idCardNo){
+        int[] weight = {7,9,10,5,8,4,2,1,6,3,7,9,10,5,8,4,2};//加权数组
+        int[] sfz = new int[17];//身份证前十七位
+        int s = 0;//权重之和
+        int rs = 0;//权重%11
+        int[] last = {1,0,10,9,8,7,6,5,4,3,2};//最后一位对比数组
+        int lastNo = 0;//最后一位数字
+        String lastStr = null;//最后一位字符（考虑到10需要转为X）
+
         //将需要验证的身份证号码返回前17位数并且组成一个数组
         for(int i=0;i<sfz.length;i++){
             sfz[i] = Character.getNumericValue(idCardNo.charAt(i));//char类型不能强转为int
@@ -71,16 +35,33 @@ public class ValidateIdCard {
         for(int i=0;i<weight.length;i++){
             s = s + weight[i]*sfz[i];
         }
-        result = s%11;
+        rs = s%11;
         //获取最后一位数
-        lastNo = last[result];
+        lastNo = last[rs];
         if(lastNo==10){
             lastStr = "X";
         }else{
             lastStr = String.valueOf(lastNo);
         }
-
         return lastStr;
+    }
+
+    /**
+     * 入参为完整的身份证号，验证最后一位是否符合加权规则
+     * @param idCardNo
+     * @return
+     */
+    public boolean verifyLastDigit(String idCardNo){
+        boolean result = false;
+        //idCardNo = "420117199701190022";
+        String lastStr = idCardNo.substring(idCardNo.length()-1);
+        if(!idCardNo.matches(idFormatRegex)){
+            System.out.println("抱歉，身份证格式不正确，请检查输入");
+        }else{
+            result = lastStr.equals(ValidateIdCard.idCardNoWeight(idCardNo))?true:false;
+            //System.out.println(result);
+        }
+        return result;
     }
 
     /**
@@ -93,8 +74,8 @@ public class ValidateIdCard {
         String atr = null;//身份证号后三位组合
         String sfza = null;//身份证号前十七位组合
         String idCard = null;//完整的身份证号字符串
+        String lastStr = null;//身份证最后一位字符
         List<String> idCardList = new ArrayList<String>();//完整的十八位身份证号
-
 
         for(int aaa=0;aaa<1000;aaa++){
             if(aaa<10){
@@ -106,8 +87,7 @@ public class ValidateIdCard {
             }
 
             sfza = idCardDb+atr;//身份证号前十七位
-            ValidateIdCard sfzz = new ValidateIdCard();
-            lastStr = sfzz.validateIdLast(sfza);
+            lastStr = ValidateIdCard.idCardNoWeight(sfza);
 
             idCard = sfza+lastStr;//完整的身份证号码字符串
             int flag = Character.getNumericValue(idCard.charAt(16));//第十七位数，奇偶性判断男女
@@ -122,65 +102,50 @@ public class ValidateIdCard {
         return idCardList;
     }
 
-    /*
-     * 验证身份证最后一位
+    /**
+     * 根据火车票面身份信息（码掉生日），遍历出可能的结果
+     * @param ticketFormatIdNo
+     * @return
+     * @throws Exception
      */
-    @Test
-    public void verifyLastDigit(){
-        String idCardNo = "420117199701190022";
-        ValidateIdCard vi = new ValidateIdCard();
-        String lastStr = vi.validateIdLast(idCardNo);
-        System.out.println(lastStr);
-    }
+    public List<String> foreachBirthday(String ticketFormatIdNo) throws Exception{
+        List<String> idNos = new ArrayList<String>();
+        if(!ticketFormatIdNo.matches(ticketFormatRegex)){
+            System.out.println("输入不符合火车票面身份证字符串格式");
+        }else{
+            String birthyear = ticketFormatIdNo.substring(6,10);
+            String birthdate = null;
+            String calcuateYear = null;
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            Date date = sdf.parse(birthyear + "-01-01");
+            do{//遍历当年日期，组成数组
+                birthdate = sdf.format(date).replace("-","").substring(4,8);
+                idNos.add(ticketFormatIdNo.replace("****",birthdate));
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(date);
+                calendar.add(Calendar.DAY_OF_YEAR,1);
+                date = calendar.getTime();
+                calcuateYear = sdf.format(date).substring(0,4);
 
-    /*
-     * 已知身份证前十四位求后四位
-     */
-    @Test
-    public void getLast4Digits(){
-        String idCardDb = "32068319960903";//输入身份证号码前十四位
-        boolean isMale = true;//输入性别
-
-        ValidateIdCard vr = new ValidateIdCard();
-        List<String> idCardList = vr.figureIdLastFour(idCardDb,isMale);
-
-        //排除最后一位为X的身份证号
-        List<String> idCardListX = new ArrayList<String>();
-        /*for(int i=0;i<idCardList.size();i++){
-            String idCard = idCardList.get(i);
-            String aaa =  String.valueOf(idCard.charAt(17));
-            if (aaa.equals("X")){
-                idCardList.remove(i);
-                idCardListX.add(idCard);
+            }while(calcuateYear.equals(birthyear));
+        }
+        //直接这么写不行，会报ConcurrentModificationException异常
+        //解决方案见https://www.cnblogs.com/tonz/p/9662236.html
+        /*for(String idCardNo:idNos){
+            ValidateIdCard vi = new ValidateIdCard();
+            if(vi.verifyLastDigit(idCardNo)==false){
+                idNos.remove(idCardNo);
             }
         }*/
-
-        //打印包含X的身份证号
-        for(String idCard : idCardListX){
-            System.out.println(idCard);
-        }
-        System.out.println(idCardListX.size());
-
-        //遍历身份证号码数组的结果集
-        for(String idCard : idCardList){
-            if(isMale==true){
-                System.out.println(idCard+","+"男");
-            }else if(isMale==false){
-                System.out.println(idCard+","+"女");
+        Iterator<String> it = idNos.iterator();
+        while (it.hasNext()){
+            String idCardNo = it.next();
+            ValidateIdCard vi = new ValidateIdCard();
+            if(vi.verifyLastDigit(idCardNo)==false){
+                it.remove();
             }
         }
-
-
-      System.out.println(idCardList.size());
+        return idNos;
     }
 
-    /**
-     * 针对生日被码掉四位，遍历可能的生日
-     */
-    @Test
-    public void getBirthday() throws Exception{
-        String ticketFormatIdNo = "3206831992****6410";
-        ValidateIdCard vi = new ValidateIdCard();
-        vi.foreachBirthday(ticketFormatIdNo);
-    }
 }
