@@ -1,8 +1,7 @@
 package com.chen.util;
 
 import org.junit.Test;
-
-import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class TestValidateIdCard {
@@ -15,7 +14,12 @@ public class TestValidateIdCard {
     public void getResult() throws Exception{
         String idCardNo = "420117199701190022";//邓薇
         ValidateIdCard vi = new ValidateIdCard();
-        vi.verifyLastDigit(idCardNo);
+        boolean result = vi.verifyLastDigit(idCardNo);
+        if (result==true){
+            System.out.println("该身份证号符合身份证加权规律，可能真实。");
+        }else {
+            System.out.println("该身份证号一定不真实！");
+        }
     }
 
     /*
@@ -24,37 +28,35 @@ public class TestValidateIdCard {
     @Test
     public void getLast4Digits(){
         String idCardDb = "42030219880930";//雷蕾
-        boolean isMale = false;//输入性别
+        boolean isMale = false;//输入性别，true为男，false为女
+        boolean haveX = false;//最后一位是否可以是X
+
+        String gender = isMale?"男":"女";
+        String lastX = haveX?"最后一位包含X":"最后一位不包含X";
 
         ValidateIdCard vr = new ValidateIdCard();
         List<String> idCardList = vr.figureIdLastFour(idCardDb,isMale);
 
-        //排除最后一位为X的身份证号
-        List<String> idCardListX = new ArrayList<String>();
-        /*for(int i=0;i<idCardList.size();i++){
-            String idCard = idCardList.get(i);
-            String aaa =  String.valueOf(idCard.charAt(17));
-            if (aaa.equals("X")){
-                idCardList.remove(i);
-                idCardListX.add(idCard);
+        if (haveX==true){
+            System.out.println("可能的结果数："+idCardList.size()+", "+lastX);
+            for(String idCard : idCardList){
+                System.out.println(idCard+" "+gender);
             }
-        }*/
+        }else {
+            Iterator<String> it = idCardList.iterator();
+            while (it.hasNext()){
+                String idCardNo = it.next();
+                ValidateIdCard vi = new ValidateIdCard();
+                if(String.valueOf(idCardNo.charAt(17)).equals("X")){
+                    it.remove();
+                }
+            }
+            System.out.println("可能的结果数："+idCardList.size()+", "+lastX);
 
-        //打印包含X的身份证号
-        for(String idCard : idCardListX){
-            System.out.println(idCard);
-        }
-        System.out.println(idCardListX.size());
-
-        //遍历身份证号码数组的结果集
-        for(String idCard : idCardList){
-            if(isMale==true){
-                System.out.println(idCard+","+"男");
-            }else if(isMale==false){
-                System.out.println(idCard+","+"女");
+            for(String idCard : idCardList){
+                System.out.println(idCard+" "+gender);
             }
         }
-        System.out.println(idCardList.size());
     }
 
     /**
@@ -67,7 +69,7 @@ public class TestValidateIdCard {
         ValidateIdCard vi = new ValidateIdCard();
         vi.foreachBirthday(ticketFormatIdNo);
         List<String> idNos = vi.foreachBirthday(ticketFormatIdNo);
-        System.out.println(idNos.size());
+        System.out.println("遍历出"+idNos.size()+"条可能的结果。");
         for(String idCardNo:idNos){
             System.out.println(idCardNo);
         }

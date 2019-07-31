@@ -1,10 +1,7 @@
 package com.chen.util;
 
-
-
 import java.text.SimpleDateFormat;
 import java.util.*;
-
 
 public class ValidateIdCard {
 
@@ -56,21 +53,20 @@ public class ValidateIdCard {
         //idCardNo = "420117199701190022";
         String lastStr = idCardNo.substring(idCardNo.length()-1);
         if(!idCardNo.matches(idFormatRegex)){
-            System.out.println("抱歉，身份证格式不正确，请检查输入");
+            System.out.println("抱歉，身份证格式不正确，请检查输入...");
         }else{
             result = lastStr.equals(ValidateIdCard.idCardNoWeight(idCardNo))?true:false;
-            //System.out.println(result);
         }
         return result;
     }
 
     /**
-     * 入参为身份证号前14位，性别，求后四位打印出完整身份证号
+     * 入参为身份证号前14位，性别，求后四位，并打印出完整身份证号
      * @param idCardDb
      * @param isMale
      * @return
      */
-    public List<String> figureIdLastFour(String idCardDb,boolean isMale){
+    public List<String> figureIdLastFour(String idCardDb, boolean isMale){
         String atr = null;//身份证号后三位组合
         String sfza = null;//身份证号前十七位组合
         String idCard = null;//完整的身份证号字符串
