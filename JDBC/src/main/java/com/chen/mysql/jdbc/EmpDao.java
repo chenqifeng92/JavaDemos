@@ -21,9 +21,10 @@ public class EmpDao {
 
         try{
             //加载mysql驱动
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             //配置mysql数据库连接的端口号账号密码，建立连接
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/rmbp","root","Mysql921004");
+            con = DriverManager.getConnection("jdbc:mysql://45.32.49.15:3306/test?useSSL=false",
+                    "root","Tokyo#190908");
             //创建语句对象，执行SQL语句
             stmt = con.createStatement();
             rs = stmt.executeQuery("select * from workers");

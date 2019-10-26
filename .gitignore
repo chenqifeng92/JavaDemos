@@ -6,7 +6,8 @@ Servers/
 .recommenders/
 bin/
 */bin/
-
+classes/
+*/classes/
 .settings/
 */.settings/
 

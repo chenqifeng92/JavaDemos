@@ -12,9 +12,9 @@ public class DBUtil {
     public static Connection getConnection() throws Exception{
         Connection conn = null;
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             //Class.forName("oracle.jdbc.OracleDriver");
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/rmbp","root","Mysql921004");
+            conn = DriverManager.getConnection("jdbc:mysql://45.32.49.15:3306/test","root","Tokyo#190908");
             //conn = DriverManager.getConnection("jdbc:oracle:thin:@192.168.199.114:1521:ORCL","C##oracle_user","Orcl_12c");
         } catch (Exception e) {
             e.printStackTrace();
