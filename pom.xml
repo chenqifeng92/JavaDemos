@@ -16,8 +16,8 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>12</maven.compiler.source>
-        <maven.compiler.target>12</maven.compiler.target>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
     </properties>
 
     <dependencies>
@@ -51,7 +51,7 @@
                 <configuration>
                     <verbose>true</verbose>
                     <fork>true</fork>
-                    <compilerVersion>12</compilerVersion>
+                    <compilerVersion>11</compilerVersion>
                 </configuration>
             </plugin>
         </plugins>

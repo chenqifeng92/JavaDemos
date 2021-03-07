@@ -12,7 +12,7 @@ public class TestValidateIdCard {
      */
     @Test
     public void getResult() throws Exception{
-        String idCardNo = "420117199701190022";//邓薇
+        String idCardNo = "370613199603182018";//奈格利奇
         ValidateIdCard vi = new ValidateIdCard();
         boolean result = vi.verifyLastDigit(idCardNo);
         if (result==true){
