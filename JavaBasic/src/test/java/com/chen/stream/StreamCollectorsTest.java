@@ -1,14 +1,16 @@
 package com.chen.stream;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.DisplayName;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Java 8 Stream Collectors 操作测试用例
  */
+@DisplayName("Stream Collectors 测试")
 public class StreamCollectorsTest {
 
     static class Person {
@@ -41,6 +43,7 @@ public class StreamCollectorsTest {
      * 测试 toList, toSet, toCollection
      */
     @Test
+    @DisplayName("收集为 List, Set, Collection")
     public void testToCollection() {
         List<Person> people = getPersonList();
 
@@ -67,6 +70,7 @@ public class StreamCollectorsTest {
      * 测试 joining: 字符串拼接
      */
     @Test
+    @DisplayName("joining: 字符串拼接")
     public void testJoining() {
         List<Person> people = getPersonList();
 
@@ -87,6 +91,7 @@ public class StreamCollectorsTest {
      * 测试 groupingBy: 分组
      */
     @Test
+    @DisplayName("groupingBy: 分组")
     public void testGroupingBy() {
         List<Person> people = getPersonList();
 
@@ -112,6 +117,7 @@ public class StreamCollectorsTest {
      * 测试 partitioningBy: 分区 (true/false)
      */
     @Test
+    @DisplayName("partitioningBy: 分区")
     public void testPartitioningBy() {
         List<Person> people = getPersonList();
 
@@ -130,6 +136,7 @@ public class StreamCollectorsTest {
      * 测试 summarizing: 统计信息
      */
     @Test
+    @DisplayName("summarizing: 统计信息")
     public void testSummarizing() {
         List<Person> people = getPersonList();
 
@@ -148,6 +155,7 @@ public class StreamCollectorsTest {
      * 测试 mapping: 转换后收集
      */
     @Test
+    @DisplayName("mapping: 转换后收集")
     public void testMapping() {
         List<Person> people = getPersonList();
         

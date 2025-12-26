@@ -1,23 +1,26 @@
 package com.chen.stream;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.DisplayName;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Java 8 Stream 高级特性测试用例
  */
+@DisplayName("Stream 高级特性测试")
 public class StreamAdvancedTest {
 
     /**
      * 测试无限流: iterate 和 generate
      */
     @Test
+    @DisplayName("无限流: iterate 和 generate")
     public void testInfiniteStreams() {
         // iterate: 生成偶数序列 0, 2, 4, 6, 8
         List<Integer> evens = Stream.iterate(0, n -> n + 2)
@@ -37,6 +40,7 @@ public class StreamAdvancedTest {
      * 避免装箱拆箱开销
      */
     @Test
+    @DisplayName("数值流: IntStream")
     public void testPrimitiveStreams() {
         // range: [1, 5) -> 1, 2, 3, 4
         int sum = IntStream.range(1, 5).sum();
@@ -56,6 +60,7 @@ public class StreamAdvancedTest {
      * 测试流的构建方式
      */
     @Test
+    @DisplayName("流的构建方式")
     public void testStreamConstruction() {
         // Stream.of
         Stream<String> stream = Stream.of("Java", "Python", "C++");
@@ -78,6 +83,7 @@ public class StreamAdvancedTest {
      * 复杂场景：找出一段文本中出现频率最高的单词
      */
     @Test
+    @DisplayName("复杂场景: 词频统计")
     public void testWordFrequency() {
         String text = "Java is fun and Java is powerful stream API is part of Java";
         
@@ -109,6 +115,7 @@ public class StreamAdvancedTest {
      * 测试 peek: 调试流
      */
     @Test
+    @DisplayName("peek: 调试流")
     public void testPeek() {
         List<String> result = Stream.of("one", "two", "three", "four")
                 .filter(e -> e.length() > 3)

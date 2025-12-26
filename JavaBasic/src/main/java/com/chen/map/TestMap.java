@@ -3,15 +3,15 @@ package com.chen.map;
 import java.util.HashMap;
 import java.util.Map;
 import com.chen.entity.Emp;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 
 
 
 public class TestMap {
     private Map<Emp,String> employees = new HashMap<Emp,String>();
-    @Before
+    @BeforeEach
     public void testPut(){
         //向map中添加元素
         employees.put(new Emp("张三",25,"男",5000.00),"张三");
@@ -30,4 +30,3 @@ public class TestMap {
         System.out.println("是否有员工李四："+has);
     }
 }
-

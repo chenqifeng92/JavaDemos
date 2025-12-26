@@ -1,10 +1,12 @@
 package com.chen.util;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.DisplayName;
 
 import java.util.Iterator;
 import java.util.List;
 
+@DisplayName("身份证验证工具测试")
 public class TestValidateIdCard {
 
     /**
@@ -12,6 +14,7 @@ public class TestValidateIdCard {
      * @throws Exception
      */
     @Test
+    @DisplayName("验证完整身份证号的加权规律")
     public void getResult() throws Exception{
         String idCardNo = "370613199603182018";//奈格利奇
         ValidateIdCard vi = new ValidateIdCard();
@@ -27,6 +30,7 @@ public class TestValidateIdCard {
      * 已知身份证前十四位求后四位
      */
     @Test
+    @DisplayName("已知前14位推算后4位")
     public void getLast4Digits(){
         String idCardDb = "42030219880930";//雷蕾
         boolean isMale = false;//输入性别，true为男，false为女
@@ -65,6 +69,7 @@ public class TestValidateIdCard {
      * @throws Exception
      */
     @Test
+    @DisplayName("根据脱敏身份证号反推生日")
     public void getBirthIdNo() throws Exception{
         String ticketFormatIdNo = "3411021997****6427";//程璇
         ValidateIdCard vi = new ValidateIdCard();

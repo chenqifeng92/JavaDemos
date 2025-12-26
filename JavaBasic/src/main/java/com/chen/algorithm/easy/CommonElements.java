@@ -1,6 +1,6 @@
 package com.chen.algorithm.easy;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.*;
 
@@ -90,4 +90,3 @@ public class CommonElements {
     }
 
 }
-

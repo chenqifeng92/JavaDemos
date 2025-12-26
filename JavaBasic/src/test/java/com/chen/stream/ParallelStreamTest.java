@@ -1,21 +1,24 @@
 package com.chen.stream;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.DisplayName;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Java 8 Parallel Stream 并行流测试用例
  */
+@DisplayName("并行流 (Parallel Stream) 测试")
 public class ParallelStreamTest {
 
     /**
      * 测试并行流的基本使用
      */
     @Test
+    @DisplayName("并行流 vs 串行流性能对比")
     public void testParallelStream() {
         // 创建一个大的列表
         int size = 1000000;
@@ -49,6 +52,7 @@ public class ParallelStreamTest {
      * 测试并行流的线程安全性问题 (副作用)
      */
     @Test
+    @DisplayName("并行流的线程安全问题演示")
     public void testParallelStreamSideEffects() {
         // 这是一个反例，演示并行流修改共享变量可能导致的问题
         // 在实际开发中应避免这种写法
@@ -73,6 +77,7 @@ public class ParallelStreamTest {
      * 测试并行排序
      */
     @Test
+    @DisplayName("并行排序")
     public void testParallelSort() {
         int[] numbers = new int[10000];
         Random random = new Random();

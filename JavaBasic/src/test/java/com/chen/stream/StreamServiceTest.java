@@ -1,21 +1,23 @@
 package com.chen.stream;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.DisplayName;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * StreamService 的单元测试用例
  */
+@DisplayName("StreamService 功能测试")
 public class StreamServiceTest {
 
     private StreamService streamService;
     private List<Person> personList;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         streamService = new StreamService();
         personList = Arrays.asList(
@@ -28,6 +30,7 @@ public class StreamServiceTest {
     }
 
     @Test
+    @DisplayName("filterEvens: 过滤偶数")
     public void testFilterEvens() {
         List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6);
         List<Integer> result = streamService.filterEvens(numbers);
@@ -35,6 +38,7 @@ public class StreamServiceTest {
     }
 
     @Test
+    @DisplayName("toUpperCase: 转换为大写")
     public void testToUpperCase() {
         List<String> names = Arrays.asList("alice", "bob");
         List<String> result = streamService.toUpperCase(names);
@@ -42,6 +46,7 @@ public class StreamServiceTest {
     }
 
     @Test
+    @DisplayName("flattenList: 扁平化列表")
     public void testFlattenList() {
         List<List<String>> nested = Arrays.asList(
                 Arrays.asList("a", "b"),
@@ -52,6 +57,7 @@ public class StreamServiceTest {
     }
 
     @Test
+    @DisplayName("sortList: 列表排序")
     public void testSortList() {
         List<Integer> numbers = Arrays.asList(5, 2, 8);
         
@@ -65,6 +71,7 @@ public class StreamServiceTest {
     }
 
     @Test
+    @DisplayName("getDistinctList: 去重")
     public void testGetDistinctList() {
         List<Integer> numbers = Arrays.asList(1, 2, 2, 3);
         List<Integer> result = streamService.getDistinctList(numbers);
@@ -72,6 +79,7 @@ public class StreamServiceTest {
     }
 
     @Test
+    @DisplayName("getLimitSkip: 截断和跳过")
     public void testGetLimitSkip() {
         List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
         List<Integer> result = streamService.getLimitSkip(numbers, 3, 5);
@@ -81,6 +89,7 @@ public class StreamServiceTest {
     }
 
     @Test
+    @DisplayName("sum: 求和")
     public void testSum() {
         List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
         Integer result = streamService.sum(numbers);
@@ -88,12 +97,14 @@ public class StreamServiceTest {
     }
 
     @Test
+    @DisplayName("areAllEven: 检查是否全为偶数")
     public void testAreAllEven() {
         assertTrue(streamService.areAllEven(Arrays.asList(2, 4, 6)));
         assertFalse(streamService.areAllEven(Arrays.asList(2, 3, 6)));
     }
 
     @Test
+    @DisplayName("findFirst: 查找第一个")
     public void testFindFirst() {
         List<Integer> numbers = Arrays.asList(1, 2, 3);
         Optional<Integer> first = streamService.findFirst(numbers);
@@ -102,6 +113,7 @@ public class StreamServiceTest {
     }
 
     @Test
+    @DisplayName("findAny: 查找任意一个")
     public void testFindAny() {
         List<Integer> numbers = Arrays.asList(1, 2, 3);
         Optional<Integer> any = streamService.findAny(numbers);
@@ -109,6 +121,7 @@ public class StreamServiceTest {
     }
 
     @Test
+    @DisplayName("getNames: 获取名字列表")
     public void testGetNames() {
         List<String> names = streamService.getNames(personList);
         assertEquals(5, names.size());
@@ -117,6 +130,7 @@ public class StreamServiceTest {
     }
 
     @Test
+    @DisplayName("getNamesAsLinkedList: 获取名字列表(LinkedList)")
     public void testGetNamesAsLinkedList() {
         LinkedList<String> names = streamService.getNamesAsLinkedList(personList);
         assertEquals(5, names.size());
@@ -124,6 +138,7 @@ public class StreamServiceTest {
     }
 
     @Test
+    @DisplayName("getCities: 获取城市集合")
     public void testGetCities() {
         Set<String> cities = streamService.getCities(personList);
         assertEquals(3, cities.size());
@@ -133,12 +148,14 @@ public class StreamServiceTest {
     }
 
     @Test
+    @DisplayName("joinNames: 拼接名字")
     public void testJoinNames() {
         String result = streamService.joinNames(personList);
         assertEquals("Alice, Bob, Charlie, David, Eve", result);
     }
 
     @Test
+    @DisplayName("groupByCity: 按城市分组")
     public void testGroupByCity() {
         Map<String, List<Person>> result = streamService.groupByCity(personList);
         assertEquals(2, result.get("New York").size());
@@ -147,6 +164,7 @@ public class StreamServiceTest {
     }
 
     @Test
+    @DisplayName("getNamesByCity: 按城市分组获取名字")
     public void testGetNamesByCity() {
         Map<String, List<String>> result = streamService.getNamesByCity(personList);
         List<String> nyNames = result.get("New York");
@@ -156,6 +174,7 @@ public class StreamServiceTest {
     }
 
     @Test
+    @DisplayName("partitionByAge: 按年龄分区")
     public void testPartitionByAge() {
         Map<Boolean, List<Person>> result = streamService.partitionByAge(personList, 30);
         
@@ -168,6 +187,7 @@ public class StreamServiceTest {
     }
 
     @Test
+    @DisplayName("getAgeStatistics: 年龄统计")
     public void testGetAgeStatistics() {
         IntSummaryStatistics stats = streamService.getAgeStatistics(personList);
         assertEquals(5, stats.getCount());
@@ -177,12 +197,14 @@ public class StreamServiceTest {
     }
 
     @Test
+    @DisplayName("getAverageAge: 平均年龄")
     public void testGetAverageAge() {
         double avg = streamService.getAverageAge(personList);
         assertEquals(28.6, avg, 0.01);
     }
 
     @Test
+    @DisplayName("getWordFrequency: 词频统计")
     public void testGetWordFrequency() {
         String text = "Java is fun and Java is powerful";
         Map<String, Long> result = streamService.getWordFrequency(text);
@@ -193,6 +215,7 @@ public class StreamServiceTest {
     }
 
     @Test
+    @DisplayName("countEvensParallel: 并行流计数")
     public void testCountEvensParallel() {
         List<Integer> numbers = new ArrayList<>();
         for (int i = 0; i < 1000; i++) {
@@ -203,12 +226,14 @@ public class StreamServiceTest {
     }
     
     @Test
+    @DisplayName("generateEvens: 生成偶数序列")
     public void testGenerateEvens() {
         List<Integer> evens = streamService.generateEvens(5);
         assertEquals(Arrays.asList(0, 2, 4, 6, 8), evens);
     }
 
     @Test
+    @DisplayName("debugStream: 调试流")
     public void testDebugStream() {
         List<String> input = Arrays.asList("one", "two", "three", "four");
         List<String> result = streamService.debugStream(input);

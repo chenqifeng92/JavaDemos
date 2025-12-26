@@ -1,6 +1,6 @@
 package com.chen.string;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
