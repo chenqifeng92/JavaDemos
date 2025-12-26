@@ -108,8 +108,8 @@ public class StreamCollectorsTest {
                 .collect(Collectors.groupingBy(Person::getCity,
                         Collectors.groupingBy(Person::getAge)));
         
-        assertEquals(1, peopleByCityAndAge.get("New York").get(25).size()); // Alice & Charlie are 25, but wait, groupingBy age will put them in same list
-        // Actually Alice and Charlie are both 25.
+        // 在 New York，Alice 和 Charlie 都是 25 岁
+        // 所以 peopleByCityAndAge.get("New York").get(25) 应该包含 2 个人
         assertEquals(2, peopleByCityAndAge.get("New York").get(25).size());
     }
 
